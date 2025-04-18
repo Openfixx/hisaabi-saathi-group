@@ -1,12 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+      <Card className="max-w-md w-full">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-bold text-primary-purple">Hisaab Kitaab</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center mb-6">
+            <p className="text-lg text-gray-600 mb-4">
+              Track expenses, loans & settlements with friends and family
+            </p>
+            <div className="flex justify-center gap-3 mt-6">
+              <Button className="bg-gradient-to-r from-primary-purple to-secondary-purple">
+                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
