@@ -1,0 +1,95 @@
+
+.transaction-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.transaction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-card.lent {
+  border-left: 4px solid #4CAF50;
+}
+
+.transaction-card.borrowed {
+  border-left: 4px solid #F44336;
+}
+
+.transaction-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.transaction-card.lent .transaction-icon {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+}
+
+.transaction-card.borrowed .transaction-icon {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #F44336;
+}
+
+.transaction-details {
+  flex: 1;
+}
+
+.transaction-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.transaction-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 3px;
+}
+
+.transaction-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.transaction-amount {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.amount.lent {
+  color: #4CAF50;
+}
+
+.amount.borrowed {
+  color: #F44336;
+}
+
+@media (max-width: 500px) {
+  .transaction-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .transaction-icon {
+    margin-bottom: 10px;
+  }
+  
+  .transaction-amount {
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+}

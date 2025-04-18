@@ -1,0 +1,92 @@
+
+.reminder-card {
+  background: linear-gradient(135deg, #9b87f5, #7E69AB);
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(155, 135, 245, 0.3);
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+}
+
+.reminder-card:hover {
+  transform: translateY(-3px);
+}
+
+.reminder-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.reminder-icon {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.reminder-user {
+  flex: 1;
+  font-size: 14px;
+}
+
+.reminder-date {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.reminder-content {
+  margin-bottom: 20px;
+}
+
+.reminder-message {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.reminder-amount {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.reminder-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-pay, .btn-later {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-pay {
+  background-color: white;
+  color: var(--primary-purple);
+}
+
+.btn-pay:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-later {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.btn-later:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 500px) {
+  .reminder-actions {
+    flex-direction: column;
+  }
+}

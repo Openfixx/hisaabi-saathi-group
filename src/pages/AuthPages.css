@@ -1,0 +1,250 @@
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+}
+
+.auth-container {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.app-name {
+  font-size: 36px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #9b87f5, #7E69AB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.app-tagline {
+  color: #666;
+}
+
+.auth-form {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: 1px solid #e0e0e0;
+  background: white;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.social-btn.google {
+  color: #4285F4;
+}
+
+.social-btn.apple {
+  color: #000;
+}
+
+.social-btn.instagram {
+  color: #E1306C;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.divider span {
+  position: relative;
+  background: white;
+  padding: 0 10px;
+  color: #888;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 2px rgba(155, 135, 245, 0.1);
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot-password a, .terms a {
+  color: var(--primary-purple);
+  text-decoration: none;
+}
+
+.terms {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #9b87f5, #7E69AB);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(155, 135, 245, 0.3);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: var(--primary-purple);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-graphic {
+  flex: 1;
+  background: linear-gradient(135deg, #9b87f5, #7E69AB);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-feature {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  color: white;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-feature h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.auth-feature ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.auth-feature li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  padding-left: 25px;
+}
+
+.auth-feature li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.auth-feature li:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 900px) {
+  .auth-page {
+    flex-direction: column;
+  }
+  
+  .auth-graphic {
+    display: none;
+  }
+  
+  .auth-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .auth-form {
+    padding: 20px;
+  }
+}
