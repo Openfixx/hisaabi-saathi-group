@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 const App = () => {
   // Initialize with a basic auth check
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     // Check for current session
@@ -40,7 +40,9 @@ const App = () => {
 
     // Cleanup listener
     return () => {
-      authListener?.subscription.unsubscribe();
+      if (authListener?.subscription) {
+        authListener.subscription.unsubscribe();
+      }
     };
   }, []);
 
