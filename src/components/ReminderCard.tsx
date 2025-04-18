@@ -9,13 +9,16 @@ interface ReminderCardProps {
     id: number;
     from: string;
     to: string;
-    amount: number;
+    amount: number | undefined;
     message: string;
     date: string;
   };
 }
 
 const ReminderCard: React.FC<ReminderCardProps> = ({ reminder }) => {
+  // Format amount safely
+  const formattedAmount = reminder.amount !== undefined ? `₹${reminder.amount.toLocaleString()}` : '₹0';
+
   return (
     <Card className="mb-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white">
       <CardContent className="p-4">
@@ -31,7 +34,7 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ reminder }) => {
         
         <div className="mb-4">
           <p className="mb-2">{reminder.message}</p>
-          <div className="text-2xl font-bold">₹{reminder.amount.toLocaleString()}</div>
+          <div className="text-2xl font-bold">{formattedAmount}</div>
         </div>
         
         <div className="flex gap-2">

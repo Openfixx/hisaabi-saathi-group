@@ -5,7 +5,7 @@ import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 interface TransactionCardProps {
   type: 'lent' | 'borrowed';
-  amount: number;
+  amount: number | undefined;
   person: string;
   date: string;
   description: string;
@@ -18,6 +18,9 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   date,
   description,
 }) => {
+  // Format amount safely
+  const formattedAmount = amount !== undefined ? `₹${amount.toLocaleString()}` : '₹0';
+
   return (
     <Card className={`mb-4 border-l-4 ${type === 'lent' ? 'border-l-green-500' : 'border-l-red-500'}`}>
       <CardContent className="p-4 flex items-center">
@@ -36,7 +39,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
         </div>
         
         <div className={`font-bold text-lg ${type === 'lent' ? 'text-green-500' : 'text-red-500'}`}>
-          ₹{amount.toLocaleString()}
+          {formattedAmount}
         </div>
       </CardContent>
     </Card>

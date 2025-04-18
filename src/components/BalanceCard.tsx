@@ -5,7 +5,7 @@ import { ArrowUpRight, ArrowDownRight, Wallet } from 'lucide-react';
 
 interface BalanceCardProps {
   title: string;
-  amount: number;
+  amount: number | undefined;
   type: 'owed' | 'youOwe' | 'total';
   description?: string;
 }
@@ -37,6 +37,9 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ title, amount, type, descript
     }
   };
 
+  // Format amount safely
+  const formattedAmount = amount !== undefined ? `₹${amount.toLocaleString()}` : '₹0';
+
   return (
     <Card className={`${type === 'total' ? 'bg-gradient-to-br from-purple-600 to-purple-800 text-white' : 'bg-white'}`}>
       <CardContent className="p-6">
@@ -46,7 +49,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ title, amount, type, descript
               {title}
             </h3>
             <p className={`text-2xl font-bold mt-1 ${getAmountColor()}`}>
-              ₹{amount.toLocaleString()}
+              {formattedAmount}
             </p>
             {description && (
               <p className={`text-xs mt-1 ${type === 'total' ? 'text-white/80' : 'text-gray-400'}`}>

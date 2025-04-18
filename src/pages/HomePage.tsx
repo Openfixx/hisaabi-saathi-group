@@ -7,7 +7,7 @@ import TransactionCard from '@/components/TransactionCard';
 import ReminderCard from '@/components/ReminderCard';
 
 const HomePage = () => {
-  // Mock data for balances
+  // Mock data for balances - ensure they're all defined
   const balances = {
     owed: 5200,
     youOwe: 2300,
