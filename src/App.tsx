@@ -11,13 +11,17 @@ import { supabase } from "./integrations/supabase/client";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import CalculatorPage from "./pages/CalculatorPage";
+import ChatPage from "./pages/ChatPage";
 import NotFound from "./pages/NotFound";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 // Import other pages that will be implemented
 import GroupsPage from "./pages/GroupsPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import RemindersPage from "./pages/RemindersPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import SettingsPage from "./pages/SettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -71,13 +75,17 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
               <Route path="calculator" element={<CalculatorPage />} />
+              <Route path="chat" element={<ChatPage />} />
               <Route path="groups" element={<GroupsPage />} />
               <Route path="history" element={<HistoryPage />} />
               <Route path="reminders" element={<RemindersPage />} />
               <Route path="profile" element={<ProfilePage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

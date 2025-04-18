@@ -22,23 +22,24 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   const formattedAmount = amount !== undefined ? `₹${amount.toLocaleString()}` : '₹0';
 
   return (
-    <Card className={`border-l-4 transition-all hover:shadow-md ${type === 'lent' ? 'border-l-green-500' : 'border-l-red-500'}`}>
-      <CardContent className="p-4 flex items-center space-x-4">
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-          type === 'lent' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'
-        }`}>
-          {type === 'lent' ? <ArrowUpRight size={24} /> : <ArrowDownRight size={24} />}
+    <Card className="border-0 shadow-sm bg-white mb-3">
+      <CardContent className="p-4 flex items-start">
+        <div className="mr-4">
+          {type === 'lent' ? (
+            <ArrowUpRight size={20} className="text-green-600" />
+          ) : (
+            <ArrowDownRight size={20} className="text-red-600" />
+          )}
         </div>
         
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-800">
+          <h3 className="font-medium text-gray-800">
             {type === 'lent' ? `Lent to ${person}` : `Borrowed from ${person}`}
           </h3>
-          <p className="text-sm text-gray-600">{description}</p>
           <p className="text-xs text-gray-500 mt-1">{date}</p>
         </div>
         
-        <div className={`font-bold text-lg ${type === 'lent' ? 'text-green-600' : 'text-red-600'}`}>
+        <div className={`font-bold ${type === 'lent' ? 'text-green-600' : 'text-red-600'}`}>
           {formattedAmount}
         </div>
       </CardContent>

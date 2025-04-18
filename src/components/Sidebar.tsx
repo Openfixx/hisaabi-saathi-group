@@ -9,7 +9,8 @@ import {
   Bell, 
   UserCircle,
   Settings,
-  LogOut
+  LogOut,
+  MessageSquare
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -17,6 +18,7 @@ const Sidebar = () => {
   const navLinks = [
     { path: '/', name: 'Home', icon: Home },
     { path: '/calculator', name: 'Calculator', icon: Calculator },
+    { path: '/chat', name: 'Chat', icon: MessageSquare },
     { path: '/groups', name: 'Groups', icon: Users },
     { path: '/history', name: 'History', icon: History },
     { path: '/reminders', name: 'Reminders', icon: Bell },
@@ -24,14 +26,17 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="h-screen w-64 fixed left-0 top-0 bg-gradient-to-b from-purple-600 to-purple-800 text-white p-4 flex flex-col">
+    <div className="h-screen fixed left-0 top-0 bg-white border-r w-64 flex flex-col p-4">
       <div className="mb-8 pl-2">
-        <Logo />
+        <div className="text-xl font-bold">
+          <span className="text-purple-600">HK</span>
+        </div>
+        <div className="text-lg font-semibold text-gray-800">Hisaab Kitaab</div>
       </div>
       
       <div className="flex-1">
         <nav>
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {navLinks.map((link) => (
               <li key={link.path}>
                 <NavLink 
@@ -39,8 +44,8 @@ const Sidebar = () => {
                   className={({ isActive }) => 
                     `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                       isActive 
-                        ? 'bg-white/20 text-white' 
-                        : 'text-white/80 hover:bg-white/10'
+                        ? 'bg-purple-100 text-purple-700' 
+                        : 'text-gray-700 hover:bg-gray-100'
                     }`
                   }
                 >
@@ -53,12 +58,12 @@ const Sidebar = () => {
         </nav>
       </div>
       
-      <div className="pt-4 border-t border-white/20">
-        <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-white/80 hover:bg-white/10 transition-colors">
+      <div className="pt-4 border-t border-gray-200">
+        <NavLink to="/settings" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
           <Settings size={20} />
           <span>Settings</span>
-        </button>
-        <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-white/80 hover:bg-white/10 transition-colors">
+        </NavLink>
+        <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
           <LogOut size={20} />
           <span>Logout</span>
         </button>

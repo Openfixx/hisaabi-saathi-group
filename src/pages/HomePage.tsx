@@ -2,23 +2,22 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import BalanceCard from '@/components/BalanceCard';
 import TransactionCard from '@/components/TransactionCard';
 import ReminderCard from '@/components/ReminderCard';
 
 const HomePage = () => {
-  // Mock data for balances - ensure they're all defined
+  // Mock data for balances
   const balances = {
-    owed: 5200,
-    youOwe: 2300,
-    total: 2900
+    owed: 750,
+    youOwe: 1200,
+    total: -450
   };
 
   // Mock data for recent transactions
   const recentTransactions = [
     {
       id: 1,
-      type: 'lent' as const,
+      type: 'borrowed' as const,
       amount: 500,
       person: 'Aarav',
       date: 'Apr 18, 2025',
@@ -27,15 +26,15 @@ const HomePage = () => {
     {
       id: 2,
       type: 'borrowed' as const,
-      amount: 1200,
+      amount: 350,
       person: 'Priya',
       date: 'Apr 15, 2025',
       description: 'Movie tickets and snacks'
     },
     {
       id: 3,
-      type: 'lent' as const,
-      amount: 250,
+      type: 'borrowed' as const,
+      amount: 350,
       person: 'Vikram',
       date: 'Apr 12, 2025',
       description: 'Coffee and snacks'
@@ -50,46 +49,45 @@ const HomePage = () => {
       to: 'You',
       amount: 500,
       message: 'Please pay for the dinner we had at Urban Cafe last week.',
-      date: 'Apr 18, 2025'
+      date: '18 Apr, 2025'
     }
   ];
 
   return (
-    <div className="container mx-auto px-4 py-6 space-y-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
-      
+    <div className="px-4 py-6 bg-gray-50 min-h-screen">
       {/* Balance Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <BalanceCard 
-          title="Owed to You" 
-          amount={balances.owed} 
-          type="owed" 
-          description="From 4 people"
-        />
-        <BalanceCard 
-          title="You Owe" 
-          amount={balances.youOwe} 
-          type="youOwe" 
-          description="To 2 people"
-        />
-        <BalanceCard 
-          title="Net Balance" 
-          amount={balances.total} 
-          type="total" 
-          description="Updated just now"
-        />
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-4 col-span-1">
+          <h2 className="text-sm font-medium text-white/90 mb-2">Total Balance</h2>
+          <div className="text-2xl font-bold mb-1">₹{balances.total}</div>
+          <p className="text-xs text-white/80">
+            {balances.total >= 0 ? 'You will receive this amount' : 'You need to pay this amount'}
+          </p>
+        </div>
+        
+        <div className="bg-white rounded-lg p-4 shadow-sm col-span-1">
+          <h2 className="text-sm font-medium text-gray-600 mb-2">Lent</h2>
+          <div className="text-2xl font-bold text-green-600 mb-1">₹{balances.owed}</div>
+          <p className="text-xs text-gray-500">Money to receive</p>
+        </div>
+        
+        <div className="bg-white rounded-lg p-4 shadow-sm col-span-1">
+          <h2 className="text-sm font-medium text-gray-600 mb-2">Borrowed</h2>
+          <div className="text-2xl font-bold text-red-600 mb-1">₹{balances.youOwe}</div>
+          <p className="text-xs text-gray-500">Money to pay</p>
+        </div>
       </div>
       
       {/* Recent Transactions */}
-      <section className="bg-white rounded-xl shadow-sm p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">Recent Transactions</h2>
-          <Button variant="default" className="bg-purple-600 hover:bg-purple-700">
-            <Plus size={18} className="mr-2" /> Add Transaction
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">Recent Transactions</h2>
+          <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
+            <Plus size={16} className="mr-1" /> New
           </Button>
         </div>
         
-        <div className="space-y-4">
+        <div>
           {recentTransactions.map(transaction => (
             <TransactionCard 
               key={transaction.id}
@@ -101,23 +99,23 @@ const HomePage = () => {
             />
           ))}
         </div>
-      </section>
+      </div>
       
       {/* Reminders */}
-      <section className="bg-white rounded-xl shadow-sm p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">Reminders</h2>
-          <Button variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-50">
-            <Plus size={18} className="mr-2" /> Send Reminder
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">Reminders</h2>
+          <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
+            <Plus size={16} className="mr-1" /> New
           </Button>
         </div>
         
-        <div className="space-y-4">
+        <div>
           {reminders.map(reminder => (
             <ReminderCard key={reminder.id} reminder={reminder} />
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };
