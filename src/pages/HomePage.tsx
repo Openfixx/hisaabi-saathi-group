@@ -55,8 +55,8 @@ const HomePage = () => {
   ];
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+    <div className="container mx-auto px-4 py-6 space-y-8">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
       
       {/* Balance Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -81,15 +81,15 @@ const HomePage = () => {
       </div>
       
       {/* Recent Transactions */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Recent Transactions</h2>
+      <section className="bg-white rounded-xl shadow-sm p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800">Recent Transactions</h2>
           <Button variant="default" className="bg-purple-600 hover:bg-purple-700">
-            <Plus size={18} className="mr-1" /> Add Transaction
+            <Plus size={18} className="mr-2" /> Add Transaction
           </Button>
         </div>
         
-        <div>
+        <div className="space-y-4">
           {recentTransactions.map(transaction => (
             <TransactionCard 
               key={transaction.id}
@@ -101,23 +101,23 @@ const HomePage = () => {
             />
           ))}
         </div>
-      </div>
+      </section>
       
       {/* Reminders */}
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Reminders</h2>
+      <section className="bg-white rounded-xl shadow-sm p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800">Reminders</h2>
           <Button variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-50">
-            <Plus size={18} className="mr-1" /> Send Reminder
+            <Plus size={18} className="mr-2" /> Send Reminder
           </Button>
         </div>
         
-        <div>
+        <div className="space-y-4">
           {reminders.map(reminder => (
             <ReminderCard key={reminder.id} reminder={reminder} />
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
