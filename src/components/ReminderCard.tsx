@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Bell } from 'lucide-react';
+import { Bell, CheckCircle, Clock } from 'lucide-react';
 
 interface ReminderCardProps {
   reminder: {
@@ -20,13 +20,18 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ reminder }) => {
   const formattedAmount = reminder.amount !== undefined ? `₹${reminder.amount.toLocaleString()}` : '₹0';
 
   return (
-    <Card className="bg-white shadow-sm border-0 mb-3">
+    <Card className="bg-white shadow-sm border-0 mb-3 hover:shadow-md transition-all">
       <CardContent className="p-4">
         <div className="flex items-start mb-3">
-          <Bell className="text-purple-600 mr-3 mt-1" size={20} />
+          <div className="bg-purple-100 p-2 rounded-full mr-3">
+            <Bell className="text-purple-600" size={18} />
+          </div>
           <div>
             <div className="text-sm font-medium">From: {reminder.from}</div>
-            <div className="text-xs text-gray-500">{reminder.date}</div>
+            <div className="text-xs text-gray-500 flex items-center">
+              <Clock size={12} className="mr-1" />
+              {reminder.date}
+            </div>
           </div>
         </div>
         
@@ -38,8 +43,9 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ reminder }) => {
         <div className="grid grid-cols-2 gap-3">
           <Button 
             variant="default" 
-            className="bg-purple-600 hover:bg-purple-700 text-xs py-1 h-auto"
+            className="bg-purple-600 hover:bg-purple-700 text-xs py-1 h-auto flex items-center gap-1"
           >
+            <CheckCircle size={14} />
             Pay Now
           </Button>
           <Button 

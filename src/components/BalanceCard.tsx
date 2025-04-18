@@ -41,7 +41,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ title, amount, type, descript
   const formattedAmount = amount !== undefined ? `₹${amount.toLocaleString()}` : '₹0';
 
   return (
-    <Card className={`${type === 'total' ? 'bg-gradient-to-br from-purple-600 to-purple-800 text-white' : 'bg-white'}`}>
+    <Card className={`overflow-hidden hover:shadow-md transition-all ${type === 'total' ? 'bg-gradient-to-r from-purple-500 to-purple-700 text-white' : 'bg-white'}`}>
       <CardContent className="p-6">
         <div className="flex justify-between items-start">
           <div>
@@ -57,7 +57,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ title, amount, type, descript
               </p>
             )}
           </div>
-          <div className={`p-2 rounded-full ${type === 'total' ? 'bg-white/20' : 'bg-gray-100'}`}>
+          <div className={`p-2 rounded-full ${type === 'total' ? 'bg-white/20' : type === 'owed' ? 'bg-green-100' : 'bg-red-100'}`}>
             {getIcon()}
           </div>
         </div>

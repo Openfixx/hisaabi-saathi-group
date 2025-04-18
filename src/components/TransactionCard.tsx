@@ -22,9 +22,9 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   const formattedAmount = amount !== undefined ? `₹${amount.toLocaleString()}` : '₹0';
 
   return (
-    <Card className="border-0 shadow-sm bg-white mb-3">
-      <CardContent className="p-4 flex items-start">
-        <div className="mr-4">
+    <Card className="hover:shadow-md transition-all border-0 shadow-sm">
+      <CardContent className="p-4 flex items-center">
+        <div className={`p-3 rounded-full mr-4 ${type === 'lent' ? 'bg-green-100' : 'bg-red-100'}`}>
           {type === 'lent' ? (
             <ArrowUpRight size={20} className="text-green-600" />
           ) : (
@@ -33,14 +33,18 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
         </div>
         
         <div className="flex-1">
-          <h3 className="font-medium text-gray-800">
-            {type === 'lent' ? `Lent to ${person}` : `Borrowed from ${person}`}
-          </h3>
-          <p className="text-xs text-gray-500 mt-1">{date}</p>
-        </div>
-        
-        <div className={`font-bold ${type === 'lent' ? 'text-green-600' : 'text-red-600'}`}>
-          {formattedAmount}
+          <div className="flex justify-between">
+            <h3 className="font-medium text-gray-800">
+              {type === 'lent' ? `You lent ${person}` : `${person} lent you`}
+            </h3>
+            <div className={`font-bold ${type === 'lent' ? 'text-green-600' : 'text-red-600'}`}>
+              {formattedAmount}
+            </div>
+          </div>
+          <div className="flex justify-between mt-1">
+            <p className="text-xs text-gray-500">{description}</p>
+            <p className="text-xs text-gray-500">{date}</p>
+          </div>
         </div>
       </CardContent>
     </Card>
