@@ -3,6 +3,37 @@ import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
+import './TransactionCard.css';
+
+export default function TransactionCard({
+  title,
+  amount,
+  date,
+  participants
+}: {
+  title: string;
+  amount: number;
+  date: string;
+  participants: string[];
+}) {
+  return (
+    <div className="transaction-card">
+      <div className="transaction-header">
+        <h3>{title}</h3>
+        <span className="amount">₹{amount}</span>
+      </div>
+      
+      <div className="transaction-footer">
+        <div className="participants">
+          {participants.map((emoji, index) => (
+            <span key={index} className="participant-emoji">{emoji}</span>
+          ))}
+        </div>
+        <span className="date">{date}</span>
+      </div>
+    </div>
+  );
+}
 
 interface TransactionCardProps {
   type: 'lent' | 'borrowed';
