@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { WashingMachine, Hanger, Droplet, Package, ArrowRight } from 'lucide-react';
+import { WashingMachine, Droplet, Package, ArrowRight, Shirt } from 'lucide-react';
 
 const HomePage = () => {
   return (
@@ -98,7 +98,7 @@ const HomePage = () => {
           <ServiceCard
             title="Ironing"
             description="Enjoy 10% off ironing service!"
-            icon={<Hanger className="h-6 w-6" />}
+            icon={<Shirt className="h-6 w-6" />}
             discount="10% off"
             bgColor="bg-pink-100"
           />
