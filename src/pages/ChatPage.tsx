@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Send, 
   Plus, 
@@ -15,7 +16,9 @@ import {
   Clock,
   Wallet,
   Calculator,
-  UserPlus
+  UserPlus,
+  Search,
+  ArrowLeft
 } from 'lucide-react';
 
 // Define interfaces for our data structures
@@ -208,19 +211,20 @@ const ChatPage = () => {
   };
   
   return (
-    <div className="flex h-[calc(100vh-64px)] -mt-6 -mx-6">
+    <div className="flex h-[calc(100vh-64px)] -mt-6 -mx-6 bg-gray-50">
       {/* Left sidebar with tabs */}
-      <div className="w-72 border-r bg-white flex flex-col">
-        <Tabs defaultValue="chats" value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <div className="w-80 border-r bg-white flex flex-col">
+        <Tabs defaultValue="chats" value={activeTab} onValueChange={setActiveTab} className="w-full h-full">
           <div className="px-4 pt-4">
-            <TabsList className="w-full grid grid-cols-3">
-              <TabsTrigger value="chats" className="text-xs">
+            <h2 className="text-2xl font-bold mb-4">Chats</h2>
+            <TabsList className="w-full grid grid-cols-3 bg-gray-100 p-1 rounded-lg">
+              <TabsTrigger value="chats" className="text-xs rounded-md data-[state=active]:bg-white">
                 <MessageSquare size={16} className="mr-1" /> Chats
               </TabsTrigger>
-              <TabsTrigger value="groups" className="text-xs">
+              <TabsTrigger value="groups" className="text-xs rounded-md data-[state=active]:bg-white">
                 <Users size={16} className="mr-1" /> Groups
               </TabsTrigger>
-              <TabsTrigger value="history" className="text-xs">
+              <TabsTrigger value="history" className="text-xs rounded-md data-[state=active]:bg-white">
                 <Clock size={16} className="mr-1" /> History
               </TabsTrigger>
             </TabsList>
@@ -229,7 +233,7 @@ const ChatPage = () => {
               <div className="relative">
                 <Input 
                   placeholder="Search..." 
-                  className="pl-8 h-9 bg-gray-50" 
+                  className="pl-8 h-9 bg-gray-50 rounded-full" 
                 />
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <Search size={16} className="text-gray-400" />
@@ -245,9 +249,11 @@ const ChatPage = () => {
                   key={contact.id} 
                   className={`p-2 ${contact.isActive ? 'bg-purple-50' : 'hover:bg-gray-50'} rounded-lg flex items-center gap-3 mb-2 cursor-pointer`}
                 >
-                  <div className={`w-10 h-10 ${contact.isActive ? 'bg-purple-200' : 'bg-gray-200'} rounded-full flex items-center justify-center`}>
-                    <span className={`font-medium ${contact.isActive ? 'text-purple-700' : 'text-gray-700'}`}>{contact.initial}</span>
-                  </div>
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback className={`${contact.isActive ? 'bg-purple-200 text-purple-700' : 'bg-gray-200 text-gray-700'}`}>
+                      {contact.initial}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center">
                       <div className="font-medium truncate">{contact.name}</div>
@@ -322,13 +328,16 @@ const ChatPage = () => {
       </div>
       
       {/* Chat Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col bg-gradient-to-b from-purple-50 to-white">
         {/* Chat Header */}
         <div className="p-4 border-b bg-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center">
-              <span className="font-medium text-purple-700">A</span>
-            </div>
+            <Button variant="ghost" size="icon" className="md:hidden text-gray-500">
+              <ArrowLeft size={20} />
+            </Button>
+            <Avatar className="h-10 w-10">
+              <AvatarFallback className="bg-purple-200 text-purple-700">A</AvatarFallback>
+            </Avatar>
             <div>
               <div className="font-medium">Aarav</div>
               <div className="text-xs text-green-600">Online</div>
@@ -336,15 +345,15 @@ const ChatPage = () => {
           </div>
           
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="flex items-center gap-1">
+            <Button variant="outline" size="sm" className="flex items-center gap-1 rounded-full">
               <Calculator size={16} />
               <span>Split Bill</span>
             </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-1">
+            <Button variant="outline" size="sm" className="flex items-center gap-1 rounded-full">
               <Wallet size={16} />
               <span>Settle Up</span>
             </Button>
-            <Button size="sm" className="bg-purple-600 hover:bg-purple-700 flex items-center gap-1">
+            <Button size="sm" className="bg-purple-600 hover:bg-purple-700 flex items-center gap-1 rounded-full">
               <Plus size={16} />
               <span>Add Transaction</span>
             </Button>
@@ -352,21 +361,21 @@ const ChatPage = () => {
         </div>
         
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+        <div className="flex-1 overflow-y-auto p-4">
           {messages.map((message) => (
             <div 
               key={message.id} 
               className={`mb-4 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div 
-                className={`max-w-[70%] rounded-lg p-3 ${
+                className={`max-w-[70%] rounded-2xl p-3 ${
                   message.sender === 'user' 
                     ? 'bg-purple-600 text-white' 
                     : 'bg-white border border-gray-200'
                 }`}
               >
                 {message.isTransaction && (
-                  <div className={`p-2 mb-2 rounded ${
+                  <div className={`p-2 mb-2 rounded-lg ${
                     message.sender === 'user' ? 'bg-purple-700' : 'bg-gray-100'
                   }`}>
                     <div className="flex items-center gap-2 mb-1">
@@ -396,36 +405,37 @@ const ChatPage = () => {
         </div>
         
         {/* Input Area */}
-        <div className="p-4 border-t bg-white">
+        <div className="p-4 bg-white rounded-t-2xl border-t">
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="text-gray-500" onClick={handleAddTransaction}>
+            <Button variant="ghost" size="icon" className="text-gray-500 rounded-full" onClick={handleAddTransaction}>
               <Plus size={20} />
             </Button>
-            <Button variant="ghost" size="icon" className="text-gray-500">
+            <Button variant="ghost" size="icon" className="text-gray-500 rounded-full">
               <Image size={20} />
             </Button>
-            <Button variant="ghost" size="icon" className="text-gray-500">
+            <Button variant="ghost" size="icon" className="text-gray-500 rounded-full">
               <PaperclipIcon size={20} />
             </Button>
             
-            <Input
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type a message..."
-              className="flex-1 bg-gray-50"
-            />
+            <div className="flex-1 relative">
+              <Input
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Type a message..."
+                className="rounded-full bg-gray-50 pr-12"
+              />
+              <Button 
+                onClick={sendMessage} 
+                disabled={!newMessage.trim()} 
+                className="absolute right-1 top-1/2 -translate-y-1/2 bg-purple-600 hover:bg-purple-700 text-white h-8 w-8 rounded-full p-0"
+              >
+                <Send size={14} />
+              </Button>
+            </div>
             
-            <Button variant="ghost" size="icon" className="text-gray-500">
+            <Button variant="ghost" size="icon" className="text-gray-500 rounded-full">
               <Smile size={20} />
-            </Button>
-            
-            <Button 
-              onClick={sendMessage} 
-              disabled={!newMessage.trim()} 
-              className="bg-purple-600 hover:bg-purple-700 text-white"
-            >
-              <Send size={18} />
             </Button>
           </div>
         </div>
@@ -433,24 +443,5 @@ const ChatPage = () => {
     </div>
   );
 };
-
-// Missing Lucide component definition
-const Search = ({ className, size }: { className?: string; size?: number }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    width={size}
-    height={size}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
 
 export default ChatPage;
