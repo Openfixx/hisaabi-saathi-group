@@ -5,6 +5,37 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WashingMachine, Droplet, Package, ArrowRight, Shirt } from 'lucide-react';
+import BalanceCard from '../components/BalanceCard';
+import TransactionCard from '../components/ui/TransactionCard';
+import QuickActions from '../components/QuickActions';
+import '../HomePage.css';
+
+export default function HomePage() {
+  return (
+    <div className="home-container">
+      {/* Gradient Balance Card */}
+      <BalanceCard balance={5432} />
+      
+      {/* Quick Actions Grid */}
+      <div className="quick-actions-grid">
+        <QuickActions icon="➕" title="Add Transaction" />
+        <QuickActions icon="🔔" title="Send Reminder" />
+        <QuickActions icon="👥" title="Create Group" />
+      </div>
+
+      {/* Recent Activity Section */}
+      <div className="recent-activity">
+        <h2>Recent Activity</h2>
+        <TransactionCard
+          title="Dinner with Friends"
+          amount={350}
+          date="Today"
+          participants={['👩🏽💻', '👨🏼💼', '🧑🏾🎨']}
+        />
+      </div>
+    </div>
+  );
+}
 
 const HomePage = () => {
   return (
