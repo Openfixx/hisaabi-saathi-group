@@ -1,3 +1,26 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Reminders from './pages/Reminders';
+import Calculator from './pages/Calculator';
+import Profile from './pages/Profile';
+import Layout from './components/Layout';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="reminders" element={<Reminders />} />
+          <Route path="calculator" element={<Calculator />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
