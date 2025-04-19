@@ -2,6 +2,19 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowUpRight, ArrowDownRight, Wallet } from 'lucide-react';
+import LinearGradient from '../LinearGradient';
+import './BalanceCard.css';
+
+export default function BalanceCard({ balance }: { balance: number }) {
+  return (
+    <LinearGradient colors={['#6C63FF', '#8E85FF']} className="balance-card">
+      <div className="balance-header">
+        <h2>Welcome Back!</h2>
+        <p className="balance-amount">₹{balance.toLocaleString()}</p>
+      </div>
+    </LinearGradient>
+  );
+}
 
 interface BalanceCardProps {
   title: string;
