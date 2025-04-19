@@ -1,18 +1,23 @@
+
+import React from 'react';
 import ReminderCard from '../components/ReminderCard';
-import '../RemindersPage.css';
 
 export default function RemindersPage() {
   const reminders = [
     {
       id: 1,
+      from: 'Alex',
+      to: 'You',
+      amount: 500,
       message: 'Alex owes you ₹500 for Goa trip',
-      status: 'pending',
       date: '2h ago'
     },
     {
       id: 2,
+      from: 'Sam',
+      to: 'You',
+      amount: 200,
       message: 'You owe Sam ₹200 for utilities',
-      status: 'cleared',
       date: '1d ago'
     }
   ];
@@ -24,9 +29,7 @@ export default function RemindersPage() {
         {reminders.map(reminder => (
           <ReminderCard
             key={reminder.id}
-            message={reminder.message}
-            status={reminder.status}
-            date={reminder.date}
+            reminder={reminder}
           />
         ))}
       </div>

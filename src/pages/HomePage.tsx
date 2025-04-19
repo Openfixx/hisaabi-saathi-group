@@ -13,25 +13,25 @@ const HomePage = () => {
   const dummyTransactions = [
     {
       id: 1,
-      type: 'lent',
+      type: 'lent' as const,
       amount: 500,
-      user: 'Aarav',
+      person: 'Aarav',
       description: 'Dinner at Urban Cafe',
       date: '18 Apr, 2025'
     },
     {
       id: 2,
-      type: 'borrowed',
+      type: 'borrowed' as const,
       amount: 1200,
-      user: 'Priya',
+      person: 'Priya',
       description: 'Movie tickets',
       date: '15 Apr, 2025'
     },
     {
       id: 3,
-      type: 'lent',
+      type: 'lent' as const,
       amount: 250,
-      user: 'Vikram',
+      person: 'Vikram',
       description: 'Coffee and snacks',
       date: '12 Apr, 2025'
     }
@@ -60,52 +60,22 @@ const HomePage = () => {
 
       {/* Balance Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl overflow-hidden shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-sm font-medium text-white/90">Total Balance</h3>
-                <p className="text-2xl font-bold mt-1">₹{(totalLent - totalBorrowed).toLocaleString()}</p>
-                <p className="text-xs mt-1 text-white/80">
-                  {totalLent - totalBorrowed > 0 ? "You'll receive this amount" : "You need to pay this amount"}
-                </p>
-              </div>
-              <div className="p-2 rounded-full bg-white/20">
-                <Wallet size={24} className="text-white" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Money To Receive</h3>
-                <p className="text-2xl font-bold mt-1 text-green-500">₹{totalLent.toLocaleString()}</p>
-                <p className="text-xs mt-1 text-gray-400">From {dummyTransactions.filter(t => t.type === 'lent').length} people</p>
-              </div>
-              <div className="p-2 rounded-full bg-green-100">
-                <ArrowUpRight size={24} className="text-green-500" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Money To Pay</h3>
-                <p className="text-2xl font-bold mt-1 text-red-500">₹{totalBorrowed.toLocaleString()}</p>
-                <p className="text-xs mt-1 text-gray-400">To {dummyTransactions.filter(t => t.type === 'borrowed').length} people</p>
-              </div>
-              <div className="p-2 rounded-full bg-red-100">
-                <ArrowDownRight size={24} className="text-red-500" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <BalanceCard
+          amount={totalLent - totalBorrowed}
+          type="total"
+        />
+        <BalanceCard
+          title="Money To Receive"
+          amount={totalLent}
+          type="owed"
+          description={`From ${dummyTransactions.filter(t => t.type === 'lent').length} people`}
+        />
+        <BalanceCard
+          title="Money To Pay"
+          amount={totalBorrowed}
+          type="youOwe"
+          description={`To ${dummyTransactions.filter(t => t.type === 'borrowed').length} people`}
+        />
       </div>
 
       {/* Quick Actions */}
@@ -129,24 +99,45 @@ const HomePage = () => {
         
         <TabsContent value="all" className="m-0">
           <div className="space-y-4">
-            {dummyTransactions.map(transaction => (
-              <TransactionCard key={transaction.id} transaction={transaction} />
+            {dummyTransactions.map(tx => (
+              <TransactionCard 
+                key={tx.id}
+                type={tx.type}
+                amount={tx.amount}
+                person={tx.person}
+                date={tx.date}
+                description={tx.description}
+              />
             ))}
           </div>
         </TabsContent>
         
         <TabsContent value="lent" className="m-0">
           <div className="space-y-4">
-            {dummyTransactions.filter(t => t.type === 'lent').map(transaction => (
-              <TransactionCard key={transaction.id} transaction={transaction} />
+            {dummyTransactions.filter(t => t.type === 'lent').map(tx => (
+              <TransactionCard 
+                key={tx.id}
+                type={tx.type}
+                amount={tx.amount}
+                person={tx.person}
+                date={tx.date}
+                description={tx.description}
+              />
             ))}
           </div>
         </TabsContent>
         
         <TabsContent value="borrowed" className="m-0">
           <div className="space-y-4">
-            {dummyTransactions.filter(t => t.type === 'borrowed').map(transaction => (
-              <TransactionCard key={transaction.id} transaction={transaction} />
+            {dummyTransactions.filter(t => t.type === 'borrowed').map(tx => (
+              <TransactionCard 
+                key={tx.id}
+                type={tx.type}
+                amount={tx.amount}
+                person={tx.person}
+                date={tx.date}
+                description={tx.description}
+              />
             ))}
           </div>
         </TabsContent>

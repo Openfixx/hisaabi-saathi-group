@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowUpRight, ArrowDownRight, Wallet } from 'lucide-react';
-import LinearGradient from '../LinearGradient';
+import LinearGradient from './LinearGradient';
 import './BalanceCard.css';
 
 interface BalanceCardProps {

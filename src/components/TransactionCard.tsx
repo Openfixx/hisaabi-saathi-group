@@ -5,17 +5,19 @@ import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import './TransactionCard.css';
 
-export default function TransactionCard({
-  title,
-  amount,
-  date,
-  participants
-}: {
+interface SimpleTransactionCardProps {
   title: string;
   amount: number;
   date: string;
   participants: string[];
-}) {
+}
+
+export function SimpleTransactionCard({
+  title,
+  amount,
+  date,
+  participants
+}: SimpleTransactionCardProps) {
   return (
     <div className="transaction-card">
       <div className="transaction-header">
@@ -43,6 +45,7 @@ interface TransactionCardProps {
   description: string;
 }
 
+// Main TransactionCard component
 const TransactionCard = ({ type, amount, person, date, description }: TransactionCardProps) => {
   // Create a safe way to get the first character, handling null/undefined cases
   const getInitial = (name: string | null | undefined): string => {

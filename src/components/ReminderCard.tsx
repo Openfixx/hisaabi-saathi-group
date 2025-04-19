@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bell, CheckCircle, Clock } from 'lucide-react';
 
-interface ReminderCardProps {
+export interface ReminderCardProps {
   reminder: {
     id: number;
     from: string;
