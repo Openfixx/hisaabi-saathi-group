@@ -13,6 +13,12 @@ interface TransactionCardProps {
 }
 
 const TransactionCard = ({ type, amount, person, date, description }: TransactionCardProps) => {
+  // Create a safe way to get the first character, handling null/undefined cases
+  const getInitial = (name: string | null | undefined): string => {
+    if (!name) return '?';
+    return name.charAt(0);
+  };
+
   return (
     <Card className="overflow-hidden border-gray-200 hover:shadow-md transition-all">
       <CardContent className="p-4">
@@ -20,12 +26,12 @@ const TransactionCard = ({ type, amount, person, date, description }: Transactio
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 border border-gray-100">
               <AvatarFallback className={`${type === 'lent' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                {person.charAt(0)}
+                {getInitial(person)}
               </AvatarFallback>
             </Avatar>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-medium text-gray-800">{person}</h3>
+                <h3 className="font-medium text-gray-800">{person || 'Unknown'}</h3>
                 <div className={`rounded-full px-2 py-0.5 text-xs ${
                   type === 'lent' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                 }`}>
