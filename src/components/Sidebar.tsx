@@ -3,20 +3,20 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   Home, 
-  Calculator, 
+  MessageSquare,
   Users, 
+  Calculator, 
   History, 
   Bell, 
-  UserCircle,
+  User,
   Settings,
   LogOut,
-  MessageSquare,
+  Plus,
   Menu,
   ChevronLeft,
-  Wallet,
-  Plus
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -25,27 +25,34 @@ interface SidebarProps {
 
 const Sidebar = ({ collapsed, toggleSidebar }: SidebarProps) => {
   const navLinks = [
-    { path: '/', name: 'Home', icon: Home },
+    { path: '/', name: 'Dashboard', icon: Home },
     { path: '/chat', name: 'Chat', icon: MessageSquare },
     { path: '/groups', name: 'Groups', icon: Users },
-    { path: '/calculator', name: 'Calculator', icon: Calculator },
+    { path: '/calculator', name: 'Split Bill', icon: Calculator },
     { path: '/history', name: 'History', icon: History },
     { path: '/reminders', name: 'Reminders', icon: Bell },
-    { path: '/profile', name: 'Profile', icon: UserCircle },
+    { path: '/profile', name: 'Profile', icon: User },
   ];
 
   return (
     <aside 
       className={`h-screen fixed left-0 top-0 bg-[#121212] text-white flex flex-col transition-all duration-300 
-      ${collapsed ? 'w-20' : 'w-64'} z-20`}
+      ${collapsed ? 'w-20' : 'w-64'} z-20 shadow-xl`}
     >
       <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-        <div className={`flex items-center ${collapsed ? 'justify-center' : ''}`}>
-          <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+        {!collapsed && (
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+              HK
+            </div>
+            <span className="font-semibold text-white text-lg">Hisaab Kitaab</span>
+          </div>
+        )}
+        {collapsed && (
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-500 rounded-xl flex mx-auto items-center justify-center text-white font-bold text-lg">
             HK
           </div>
-          {!collapsed && <span className="ml-3 font-semibold text-white">Hisaab Kitaab</span>}
-        </div>
+        )}
         <Button 
           variant="ghost" 
           size="icon" 
@@ -56,7 +63,22 @@ const Sidebar = ({ collapsed, toggleSidebar }: SidebarProps) => {
         </Button>
       </div>
       
-      <div className="flex-1 py-6 overflow-y-auto">
+      {!collapsed && (
+        <div className="p-4 border-b border-gray-800">
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10 border-2 border-purple-500">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback className="bg-purple-800">JD</AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="text-sm font-medium">John Doe</p>
+              <p className="text-xs text-gray-400">john.doe@example.com</p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <div className="flex-1 py-6 overflow-y-auto scrollbar-none">
         <nav>
           <ul className="space-y-1 px-3">
             {navLinks.map((link) => (
@@ -66,7 +88,7 @@ const Sidebar = ({ collapsed, toggleSidebar }: SidebarProps) => {
                   className={({ isActive }) => 
                     `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                       isActive 
-                        ? 'bg-purple-600 text-white' 
+                        ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' 
                         : 'text-gray-300 hover:bg-gray-800'
                     }`
                   }
@@ -82,7 +104,7 @@ const Sidebar = ({ collapsed, toggleSidebar }: SidebarProps) => {
       
       {!collapsed && (
         <div className="mx-4 mb-6">
-          <Button className="w-full bg-purple-600 hover:bg-purple-700 gap-2 rounded-xl py-6">
+          <Button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 gap-2 rounded-xl py-6">
             <Plus size={20} />
             <span>New Transaction</span>
           </Button>

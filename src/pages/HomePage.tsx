@@ -1,171 +1,168 @@
 
 import React from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { WashingMachine, Droplet, Package, ArrowRight, Shirt } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ArrowUpRight, ArrowDownRight, Wallet, Plus, Clock, ArrowRight, Users } from 'lucide-react';
 import BalanceCard from '../components/BalanceCard';
-import TransactionCard from '../components/ui/TransactionCard';
-import QuickActions from '../components/QuickActions';
-import '../HomePage.css';
-
-export default function HomePage() {
-  return (
-    <div className="home-container">
-      {/* Gradient Balance Card */}
-      <BalanceCard balance={5432} />
-      
-      {/* Quick Actions Grid */}
-      <div className="quick-actions-grid">
-        <QuickActions icon="➕" title="Add Transaction" />
-        <QuickActions icon="🔔" title="Send Reminder" />
-        <QuickActions icon="👥" title="Create Group" />
-      </div>
-
-      {/* Recent Activity Section */}
-      <div className="recent-activity">
-        <h2>Recent Activity</h2>
-        <TransactionCard
-          title="Dinner with Friends"
-          amount={350}
-          date="Today"
-          participants={['👩🏽💻', '👨🏼💼', '🧑🏾🎨']}
-        />
-      </div>
-    </div>
-  );
-}
+import TransactionCard from '../components/TransactionCard';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const HomePage = () => {
+  // Sample data
+  const dummyTransactions = [
+    {
+      id: 1,
+      type: 'lent',
+      amount: 500,
+      user: 'Aarav',
+      description: 'Dinner at Urban Cafe',
+      date: '18 Apr, 2025'
+    },
+    {
+      id: 2,
+      type: 'borrowed',
+      amount: 1200,
+      user: 'Priya',
+      description: 'Movie tickets',
+      date: '15 Apr, 2025'
+    },
+    {
+      id: 3,
+      type: 'lent',
+      amount: 250,
+      user: 'Vikram',
+      description: 'Coffee and snacks',
+      date: '12 Apr, 2025'
+    }
+  ];
+
+  const totalLent = dummyTransactions
+    .filter(t => t.type === 'lent')
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const totalBorrowed = dummyTransactions
+    .filter(t => t.type === 'borrowed')
+    .reduce((sum, t) => sum + t.amount, 0);
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
+      {/* Welcome Section */}
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-12 w-12">
-            <AvatarImage src="/placeholder.svg" />
-            <AvatarFallback>SW</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="text-sm text-gray-600">Hello</p>
-            <h1 className="text-2xl font-bold">Sarah Wilson</h1>
-          </div>
+        <div>
+          <h1 className="text-2xl font-bold">Welcome, John 👋</h1>
+          <p className="text-gray-500">Track your expenses and split bills with friends</p>
         </div>
+        <Button className="bg-purple-600 hover:bg-purple-700">
+          <Plus size={18} className="mr-2" /> Add Transaction
+        </Button>
       </div>
 
-      <Tabs defaultValue="welcome" className="w-full">
-        <TabsList className="mb-6">
-          <TabsTrigger value="welcome">Welcome Offer</TabsTrigger>
-          <TabsTrigger value="wash">Wash & Iron</TabsTrigger>
-          <TabsTrigger value="ironing">Ironing</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="welcome" className="mt-0">
-          <Card className="bg-amber-50 border-0">
-            <CardContent className="p-6">
-              <div className="max-w-md">
-                <h2 className="text-2xl font-bold mb-4">Prepay and save your laundry services</h2>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-orange-400"></span>
-                    <span>€20 minimum order</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-orange-400"></span>
-                    <span>Free 24h delivery</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-orange-400"></span>
-                    <span>Best price guaranteed</span>
-                  </li>
-                </ul>
-                <div className="relative">
-                  <Button className="bg-gray-900 hover:bg-gray-800 rounded-full px-6">
-                    Order Now
-                    <ArrowRight size={18} />
-                  </Button>
-                  <div className="absolute -right-4 -top-4 bg-blue-100 text-blue-600 rounded-full px-3 py-1 text-sm font-semibold">
-                    30% off
-                  </div>
-                </div>
+      {/* Balance Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl overflow-hidden shadow-lg">
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-sm font-medium text-white/90">Total Balance</h3>
+                <p className="text-2xl font-bold mt-1">₹{(totalLent - totalBorrowed).toLocaleString()}</p>
+                <p className="text-xs mt-1 text-white/80">
+                  {totalLent - totalBorrowed > 0 ? "You'll receive this amount" : "You need to pay this amount"}
+                </p>
               </div>
-            </CardContent>
-          </Card>
-
-          <div className="mt-6">
-            <Button variant="outline" className="w-full justify-between p-4 rounded-xl">
-              <div className="flex items-center gap-3">
-                <div className="bg-gray-900 text-white p-2 rounded-full">
-                  <Package size={20} />
-                </div>
-                <div className="text-left">
-                  <h3 className="font-semibold">Getting Started?</h3>
-                  <p className="text-sm text-gray-500">See how Laundry help works and learn more about our services.</p>
-                </div>
+              <div className="p-2 rounded-full bg-white/20">
+                <Wallet size={24} className="text-white" />
               </div>
-              <ArrowRight size={20} />
-            </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Money To Receive</h3>
+                <p className="text-2xl font-bold mt-1 text-green-500">₹{totalLent.toLocaleString()}</p>
+                <p className="text-xs mt-1 text-gray-400">From {dummyTransactions.filter(t => t.type === 'lent').length} people</p>
+              </div>
+              <div className="p-2 rounded-full bg-green-100">
+                <ArrowUpRight size={24} className="text-green-500" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Money To Pay</h3>
+                <p className="text-2xl font-bold mt-1 text-red-500">₹{totalBorrowed.toLocaleString()}</p>
+                <p className="text-xs mt-1 text-gray-400">To {dummyTransactions.filter(t => t.type === 'borrowed').length} people</p>
+              </div>
+              <div className="p-2 rounded-full bg-red-100">
+                <ArrowDownRight size={24} className="text-red-500" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <QuickActionCard icon={<Plus className="text-purple-600" />} title="Add Transaction" />
+        <QuickActionCard icon={<Users className="text-blue-600" />} title="Split Bill" />
+        <QuickActionCard icon={<Clock className="text-orange-600" />} title="Transaction History" />
+        <QuickActionCard icon={<Wallet className="text-green-600" />} title="Settle Up" />
+      </div>
+
+      {/* Recent Activity */}
+      <Tabs defaultValue="all" className="w-full">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Recent Activity</h2>
+          <TabsList className="bg-gray-100">
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="lent">Lent</TabsTrigger>
+            <TabsTrigger value="borrowed">Borrowed</TabsTrigger>
+          </TabsList>
+        </div>
+        
+        <TabsContent value="all" className="m-0">
+          <div className="space-y-4">
+            {dummyTransactions.map(transaction => (
+              <TransactionCard key={transaction.id} transaction={transaction} />
+            ))}
           </div>
         </TabsContent>
-
-        <TabsContent value="wash" className="mt-0 grid gap-4">
-          <ServiceCard
-            title="Wash"
-            description="Limited Time: 10% off wash service!"
-            icon={<WashingMachine className="h-6 w-6" />}
-            discount="10% off"
-            bgColor="bg-amber-100"
-          />
-          <ServiceCard
-            title="Wash & Iron"
-            description="Save 10% on wash & iron service!"
-            icon={<Droplet className="h-6 w-6" />}
-            discount="Save 10%"
-            bgColor="bg-orange-100"
-          />
+        
+        <TabsContent value="lent" className="m-0">
+          <div className="space-y-4">
+            {dummyTransactions.filter(t => t.type === 'lent').map(transaction => (
+              <TransactionCard key={transaction.id} transaction={transaction} />
+            ))}
+          </div>
         </TabsContent>
-
-        <TabsContent value="ironing" className="mt-0">
-          <ServiceCard
-            title="Ironing"
-            description="Enjoy 10% off ironing service!"
-            icon={<Shirt className="h-6 w-6" />}
-            discount="10% off"
-            bgColor="bg-pink-100"
-          />
+        
+        <TabsContent value="borrowed" className="m-0">
+          <div className="space-y-4">
+            {dummyTransactions.filter(t => t.type === 'borrowed').map(transaction => (
+              <TransactionCard key={transaction.id} transaction={transaction} />
+            ))}
+          </div>
         </TabsContent>
       </Tabs>
     </div>
   );
 };
 
-interface ServiceCardProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  discount: string;
-  bgColor: string;
-}
-
-const ServiceCard = ({ title, description, icon, discount, bgColor }: ServiceCardProps) => {
+const QuickActionCard = ({ icon, title }: { icon: React.ReactNode, title: string }) => {
   return (
-    <Card className={`${bgColor} border-0`}>
-      <CardContent className="p-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              {icon}
-              <h3 className="font-bold text-lg">{title}</h3>
-            </div>
-            <p className="text-sm text-gray-700 mb-4">{description}</p>
-            <Button variant="secondary" className="rounded-full">
-              Claim the offer
-            </Button>
-          </div>
-          <div className="bg-white/80 px-3 py-1 rounded-full text-sm font-medium">
-            {discount}
-          </div>
+    <Card className="hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+      <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+          {icon}
         </div>
+        <p className="font-medium">{title}</p>
       </CardContent>
     </Card>
   );

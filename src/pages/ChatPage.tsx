@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -16,12 +15,10 @@ import {
   Clock,
   Wallet,
   Calculator,
-  UserPlus,
-  Search,
-  ArrowLeft
+  ArrowLeft,
+  Search
 } from 'lucide-react';
 
-// Define interfaces for our data structures
 interface Message {
   id: number;
   text: string;
@@ -43,6 +40,7 @@ interface Contact {
   time: string;
   unread?: number;
   isActive?: boolean;
+  avatar?: string;
 }
 
 interface Group {
@@ -66,26 +64,29 @@ const ChatPage = () => {
   const [contacts] = useState<Contact[]>([
     {
       id: 1,
-      name: 'Aarav',
+      name: 'Aarav Kumar',
       initial: 'A',
       lastMessage: 'Can you remind me...',
       time: '10:30 AM',
       unread: 2,
-      isActive: true
+      isActive: true,
+      avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
     },
     {
       id: 2,
-      name: 'Priya',
+      name: 'Priya Singh',
       initial: 'P',
       lastMessage: 'Thanks for paying!',
       time: 'Yesterday',
+      avatar: 'https://randomuser.me/api/portraits/women/2.jpg'
     },
     {
       id: 3,
-      name: 'Vikram',
+      name: 'Vikram Mehta',
       initial: 'V',
       lastMessage: 'See you tomorrow',
       time: 'Monday',
+      avatar: 'https://randomuser.me/api/portraits/men/3.jpg'
     }
   ]);
 
@@ -192,7 +193,7 @@ const ChatPage = () => {
       sendMessage();
     }
   };
-
+  
   const handleAddTransaction = () => {
     const transactionMessage: Message = {
       id: messages.length + 1,
@@ -216,15 +217,15 @@ const ChatPage = () => {
       <div className="w-80 border-r bg-white flex flex-col">
         <Tabs defaultValue="chats" value={activeTab} onValueChange={setActiveTab} className="w-full h-full">
           <div className="px-4 pt-4">
-            <h2 className="text-2xl font-bold mb-4">Chats</h2>
+            <h2 className="text-xl font-bold mb-4">Chats</h2>
             <TabsList className="w-full grid grid-cols-3 bg-gray-100 p-1 rounded-lg">
-              <TabsTrigger value="chats" className="text-xs rounded-md data-[state=active]:bg-white">
+              <TabsTrigger value="chats" className="rounded-md data-[state=active]:bg-white">
                 <MessageSquare size={16} className="mr-1" /> Chats
               </TabsTrigger>
-              <TabsTrigger value="groups" className="text-xs rounded-md data-[state=active]:bg-white">
+              <TabsTrigger value="groups" className="rounded-md data-[state=active]:bg-white">
                 <Users size={16} className="mr-1" /> Groups
               </TabsTrigger>
-              <TabsTrigger value="history" className="text-xs rounded-md data-[state=active]:bg-white">
+              <TabsTrigger value="history" className="rounded-md data-[state=active]:bg-white">
                 <Clock size={16} className="mr-1" /> History
               </TabsTrigger>
             </TabsList>
@@ -247,9 +248,10 @@ const ChatPage = () => {
               {contacts.map((contact) => (
                 <div 
                   key={contact.id} 
-                  className={`p-2 ${contact.isActive ? 'bg-purple-50' : 'hover:bg-gray-50'} rounded-lg flex items-center gap-3 mb-2 cursor-pointer`}
+                  className={`p-2 ${contact.isActive ? 'bg-purple-50' : 'hover:bg-gray-50'} rounded-lg flex items-center gap-3 mb-2 cursor-pointer transition-colors`}
                 >
                   <Avatar className="h-10 w-10">
+                    <AvatarImage src={contact.avatar} />
                     <AvatarFallback className={`${contact.isActive ? 'bg-purple-200 text-purple-700' : 'bg-gray-200 text-gray-700'}`}>
                       {contact.initial}
                     </AvatarFallback>
@@ -292,7 +294,7 @@ const ChatPage = () => {
               ))}
               
               <button className="w-full mt-2 p-2 border-2 border-dashed border-gray-200 rounded-lg text-gray-500 flex items-center justify-center">
-                <UserPlus size={16} className="mr-1" />
+                <Plus size={16} className="mr-1" />
                 <span>Create New Group</span>
               </button>
             </div>
@@ -330,16 +332,17 @@ const ChatPage = () => {
       {/* Chat Content */}
       <div className="flex-1 flex flex-col bg-gradient-to-b from-purple-50 to-white">
         {/* Chat Header */}
-        <div className="p-4 border-b bg-white flex items-center justify-between">
+        <div className="p-4 border-b bg-white flex items-center justify-between shadow-sm">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" className="md:hidden text-gray-500">
               <ArrowLeft size={20} />
             </Button>
             <Avatar className="h-10 w-10">
+              <AvatarImage src="https://randomuser.me/api/portraits/men/1.jpg" />
               <AvatarFallback className="bg-purple-200 text-purple-700">A</AvatarFallback>
             </Avatar>
             <div>
-              <div className="font-medium">Aarav</div>
+              <div className="font-medium">Aarav Kumar</div>
               <div className="text-xs text-green-600">Online</div>
             </div>
           </div>
@@ -367,6 +370,12 @@ const ChatPage = () => {
               key={message.id} 
               className={`mb-4 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
+              {message.sender === 'contact' && (
+                <Avatar className="h-8 w-8 mr-2 mt-1">
+                  <AvatarImage src="https://randomuser.me/api/portraits/men/1.jpg" />
+                  <AvatarFallback>A</AvatarFallback>
+                </Avatar>
+              )}
               <div 
                 className={`max-w-[70%] rounded-2xl p-3 ${
                   message.sender === 'user' 
@@ -405,7 +414,7 @@ const ChatPage = () => {
         </div>
         
         {/* Input Area */}
-        <div className="p-4 bg-white rounded-t-2xl border-t">
+        <div className="p-4 bg-white rounded-t-2xl border-t shadow-lg">
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="text-gray-500 rounded-full" onClick={handleAddTransaction}>
               <Plus size={20} />
